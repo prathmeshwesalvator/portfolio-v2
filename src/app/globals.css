@@ -1,0 +1,304 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Mode variants
+   Every component renders inside <div data-mode="recruiter|freelance">.
+   Use `recruiter:` / `freelance:` to tune shared components per experience.
+   ========================================================================== */
+@custom-variant recruiter (&:where([data-mode="recruiter"], [data-mode="recruiter"] *));
+@custom-variant freelance (&:where([data-mode="freelance"], [data-mode="freelance"] *));
+
+/* ==========================================================================
+   Design tokens
+   Recruiter = premium light (default). Freelance = premium dark.
+   Tokens live on :root so html/body (and the View Transition snapshot) follow
+   the active experience; :has() swaps them without any inline script.
+   ========================================================================== */
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --surface-2: #f0efeb;
+  --surface-3: #e8e6e0;
+  --line: #e4e2dc;
+  --line-strong: #d2cfc6;
+  --fg: #16161a;
+  --muted: #55555e;
+  --subtle: #686871;
+
+  --primary: #16161a;
+  --primary-fg: #ffffff;
+  --primary-hover: #2c2c33;
+
+  --accent: #2f5bd3;
+  --accent-fg: #ffffff;
+  --accent-text: #2f5bd3;
+  --accent-soft: #e9eefb;
+
+  --accent-2: #17744b;
+  --accent-2-soft: #e3f1ea;
+
+  --ring: rgb(47 91 211 / 0.6);
+  --selection: rgb(47 91 211 / 0.16);
+
+  --shadow-sm: 0 1px 2px rgb(24 24 27 / 0.05), 0 1px 1px rgb(24 24 27 / 0.03);
+  --shadow-md: 0 1px 2px rgb(24 24 27 / 0.04), 0 10px 28px -10px rgb(24 24 27 / 0.12);
+  --shadow-lg: 0 2px 6px rgb(24 24 27 / 0.04), 0 28px 56px -20px rgb(24 24 27 / 0.2);
+
+  --header-h: 4rem;
+}
+
+/* The [data-mode] selector is a fallback for browsers without :has() (the
+   wrapper covers the viewport, so only overscroll areas would differ). */
+:root:has([data-mode="freelance"]),
+[data-mode="freelance"] {
+  --bg: #0a0a0c;
+  --surface: #121216;
+  --surface-2: #18181d;
+  --surface-3: #212128;
+  --line: #24242b;
+  --line-strong: #363640;
+  --fg: #f4f4f6;
+  --muted: #a6a6b0;
+  --subtle: #80808b;
+
+  --primary: #6d4aff;
+  --primary-fg: #ffffff;
+  --primary-hover: #7d5eff;
+
+  --accent: #6d4aff;
+  --accent-fg: #ffffff;
+  --accent-text: #b49cff;
+  --accent-soft: rgb(109 74 255 / 0.14);
+
+  --accent-2: #34d399;
+  --accent-2-soft: rgb(52 211 153 / 0.12);
+
+  --ring: rgb(180 156 255 / 0.75);
+  --selection: rgb(109 74 255 / 0.38);
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 12px 32px -12px rgb(0 0 0 / 0.65);
+  --shadow-lg: 0 32px 72px -24px rgb(0 0 0 / 0.75);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-primary-hover: var(--primary-hover);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-display: var(--font-bricolage), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: var(--shadow-sm);
+  --shadow-card: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
+}
+
+@theme {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-rise: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade: fade 0.6s ease-out both;
+  --animate-marquee: marquee var(--marquee-duration, 48s) linear infinite;
+  --animate-pulse-dot: pulse-dot 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  --animate-scroll-cue: scroll-cue 2.2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  --animate-blink: blink 1.1s steps(2, start) infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 0.9rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+  @keyframes pulse-dot {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 45%, transparent);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 0.55rem color-mix(in oklab, currentColor 0%, transparent);
+    }
+  }
+  @keyframes scroll-cue {
+    0% {
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+    45% {
+      transform: scaleY(1);
+      transform-origin: top;
+    }
+    55% {
+      transform: scaleY(1);
+      transform-origin: bottom;
+    }
+    100% {
+      transform: scaleY(0);
+      transform-origin: bottom;
+    }
+  }
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  html {
+    color-scheme: light;
+    background-color: var(--bg);
+    scroll-padding-top: calc(var(--header-h) + 1.25rem);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scrollbar-color: var(--line-strong) var(--bg);
+  }
+
+  :root:has([data-mode="freelance"]),
+  [data-mode="freelance"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--selection);
+  }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  /* Programmatic focus targets (skip link, in-page navigation) */
+  :where(main, section)[tabindex="-1"]:focus {
+    outline: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+@utility container-page {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Hairline grid texture — pair with a mask for a soft fade. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Fade an element's edges (e.g. marquees, grids). */
+@utility mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+@utility mask-fade-radial {
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 72%);
+}
+
+/* ==========================================================================
+   Mode switch — View Transition (circular reveal driven from ModeProvider)
+   ========================================================================== */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Reduced motion — global safety net (Framer Motion is handled by MotionConfig)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
