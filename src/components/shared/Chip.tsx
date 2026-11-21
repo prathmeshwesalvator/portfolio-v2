@@ -5,7 +5,7 @@ type ChipTone = "neutral" | "accent" | "success" | "outline";
 type ChipSize = "xs" | "sm" | "md";
 
 const TONES: Record<ChipTone, string> = {
-  neutral: "border-line bg-surface text-muted freelance:bg-surface-2",
+  neutral: "border-line bg-surface-2 text-muted",
   outline: "border-line-strong bg-transparent text-muted",
   accent: "border-transparent bg-accent-soft text-accent-text",
   success: "border-transparent bg-accent-2-soft text-accent-2",

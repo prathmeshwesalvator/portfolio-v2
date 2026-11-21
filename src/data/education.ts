@@ -1,4 +1,4 @@
-import { Award, Languages, Medal, Volleyball } from "lucide-react";
+import { Languages, Medal, Volleyball } from "lucide-react";
 import type { AdditionalItem, EducationItem } from "@/types";
 
 export const education: EducationItem = {
@@ -14,8 +14,11 @@ export const education: EducationItem = {
 
 /**
  * Recruiter mode — Additional information.
- * NCC and the Excel certification come from the previous portfolio (not on the
- * latest résumé) — see the project README for items awaiting confirmation.
+ * NCC comes from the previous portfolio (not on the latest résumé) and is kept
+ * at the owner's request. The "Advanced Excel (Microsoft)" certification is NOT
+ * on the latest résumé, so it is unpublished until verified — to restore it, add:
+ *   { id: "certification", title: "Certification",
+ *     detail: "Advanced Excel (Microsoft) — data analysis, formulas, pivot tables and dashboards.", icon: Award }
  */
 export const additionalInfo: readonly AdditionalItem[] = [
   {
@@ -24,12 +27,6 @@ export const additionalInfo: readonly AdditionalItem[] = [
     detail: "Served as CQMS (Company Quarter Master Sergeant) — leadership, discipline and teamwork through NCC training.",
     meta: "2017 — 2020",
     icon: Medal,
-  },
-  {
-    id: "certification",
-    title: "Certification",
-    detail: "Advanced Excel (Microsoft) — data analysis, formulas, pivot tables and dashboards.",
-    icon: Award,
   },
   {
     id: "languages",

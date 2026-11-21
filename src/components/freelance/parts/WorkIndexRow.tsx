@@ -160,12 +160,12 @@ export function WorkIndexRow({
                   {project.objective || project.solution ? (
                     <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
                       {project.objective ? (
-                        <WorkDetail as="h5" label="Objective">
+                        <WorkDetail as="h5" label="The problem">
                           <WorkText>{project.objective}</WorkText>
                         </WorkDetail>
                       ) : null}
                       {project.solution ? (
-                        <WorkDetail as="h5" label="Solution">
+                        <WorkDetail as="h5" label="The solution">
                           <WorkText>{project.solution}</WorkText>
                         </WorkDetail>
                       ) : null}

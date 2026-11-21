@@ -158,6 +158,18 @@ export function ProcessSection() {
 
                 <h3 className="mt-6 text-xl font-semibold tracking-[-0.02em] text-fg">{step.title}</h3>
                 <p className="mt-2 max-w-md text-sm leading-relaxed text-muted">{step.description}</p>
+                <p
+                  className={cn(
+                    "mt-4 inline-flex max-w-full items-start gap-2 rounded-xl border px-3 py-1.5 font-mono text-[0.6875rem] leading-snug transition-colors duration-700",
+                    isReached ? "border-line-strong bg-surface text-fg" : "border-line text-muted",
+                  )}
+                >
+                  <span className={cn("shrink-0", isFinal ? "text-accent-2" : "text-accent-text")}>
+                    <span aria-hidden="true">→</span>
+                    <span className="sr-only">You get:</span>
+                  </span>
+                  <span className="min-w-0">{step.output}</span>
+                </p>
               </StaggerItem>
             );
           })}

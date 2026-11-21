@@ -38,7 +38,7 @@ export function TourRouteVisual() {
       <path d={ROUTE} className="pv-tr-route stroke-accent-text" strokeWidth={2} strokeDasharray="6 8" />
 
       {/* Origin */}
-      <circle cx={72} cy={272} r={7} className="fill-surface stroke-accent-text freelance:fill-surface-3" strokeWidth={1.5} />
+      <circle cx={72} cy={272} r={7} className="fill-surface-3 stroke-accent-text" strokeWidth={1.5} />
       <circle cx={72} cy={272} r={2.5} className="fill-accent-text" />
 
       <Pin x={200} y={208} />

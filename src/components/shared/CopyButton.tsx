@@ -41,7 +41,7 @@ export function CopyButton({ value, label, className, showText = false }: CopyBu
       onClick={copy}
       aria-label={label}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3 h-8 text-xs font-medium text-muted transition-colors hover:border-line-strong hover:text-fg freelance:bg-surface-2",
+        "inline-flex items-center gap-1.5 rounded-full h-8 border border-line bg-surface-2 px-3 text-xs font-medium text-muted transition-colors hover:border-line-strong hover:text-fg",
         className,
       )}
     >

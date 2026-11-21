@@ -182,13 +182,13 @@ export function MobileMenu({ id, open, onClose, returnFocusRef }: MobileMenuProp
                 </ButtonLink>
               ) : (
                 <ButtonLink
-                  href={recruiterHero.primaryCta.href}
-                  download={recruiterHero.primaryCta.download}
+                  href={recruiterHero.resumeCta.href}
+                  download={recruiterHero.resumeCta.download}
                   size="lg"
                   leadingIcon={<Download aria-hidden="true" />}
                   className="w-full sm:w-auto"
                 >
-                  {recruiterHero.primaryCta.label}
+                  {recruiterHero.resumeCta.label}
                 </ButtonLink>
               )}
               <ButtonLink

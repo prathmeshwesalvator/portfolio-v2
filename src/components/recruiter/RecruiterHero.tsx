@@ -1,20 +1,19 @@
 "use client";
 
-import { Download } from "lucide-react";
+import { ArrowDown, ArrowRight, Clock, Download, MapPin } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 import { ModeCue } from "@/components/mode/ModeCue";
-import { HeroProfileCard } from "@/components/recruiter/parts/HeroProfileCard";
 import { GitHubIcon, LinkedInIcon } from "@/components/shared/BrandIcons";
 import { ButtonLink } from "@/components/shared/Button";
 import { profile } from "@/data/profile";
 import { recruiterHero, SECTION_IDS } from "@/data/site";
 import { cn } from "@/lib/cn";
 import { handleAnchorClick } from "@/lib/scroll";
+import { HeroBlueprint } from "./parts/HeroBlueprint";
 
 /**
  * Above-the-fold entrance is pure CSS: it runs before hydration, so the fold
- * never waits on JavaScript. With reduced motion the stagger delay is dropped
- * too, so content appears immediately instead of after a pause.
+ * never waits on JavaScript. With reduced motion the stagger delay is dropped.
  */
 const RISE = "animate-rise motion-reduce:[animation-delay:0ms]!";
 
@@ -22,121 +21,142 @@ function delay(ms: number): CSSProperties {
   return { animationDelay: `${ms}ms` };
 }
 
-/** Brand mark for a social CTA, matched against the verified profile URLs. */
-function socialIcon(href: string): ReactNode {
-  if (href === profile.links.linkedin) return <LinkedInIcon aria-hidden="true" />;
-  if (href === profile.links.github) return <GitHubIcon aria-hidden="true" />;
-  return null;
-}
-
-/** Recruiter landing: who, what, where now — and the résumé one click away. */
+/**
+ * Recruiter landing — an editorial composition, deliberately different from the
+ * freelance split hero: a full-width statement headline, then positioning + CTAs
+ * beside an interactive architecture figure, then a strip of verified résumé figures.
+ */
 export function RecruiterHero() {
-  const { headline, intro, primaryCta, secondaryCtas } = recruiterHero;
+  const { headline, positioning, intro, primaryCta, resumeCta } = recruiterHero;
 
   return (
     <section
       id={SECTION_IDS.recruiter.hero}
       aria-labelledby="hero-title"
-      className={cn(
-        "relative isolate pt-[calc(var(--header-h)+3rem)] pb-16 sm:pt-[calc(var(--header-h)+4.5rem)] sm:pb-24",
-        // lg+: fill most of the viewport with the content centred; the bottom padding houses the scroll cue.
-        "lg:flex lg:min-h-[min(100svh,64rem)] lg:flex-col lg:justify-center lg:pt-[calc(var(--header-h)+3rem)] lg:pb-28",
-      )}
+      className="relative isolate overflow-hidden pt-[calc(var(--header-h)+2.5rem)] pb-16 sm:pt-[calc(var(--header-h)+4rem)] sm:pb-20 lg:pb-24"
     >
       <HeroBackdrop />
 
       <div className="container-page">
-        {/* Two explicit tracks (fluid copy + fixed card) keep the statement measure predictable. */}
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_24rem] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_26.5rem]">
-          <div className="min-w-0">
-            <HeroStatus className={RISE} style={delay(0)} />
+        <HeroStatus className={RISE} style={delay(0)} />
 
-            {/* The h1 is a modest signature line; the large statement below is a <p>. */}
-            <h1
-              id="hero-title"
-              className={cn(
-                RISE,
-                "mt-8 flex flex-col gap-0.5 text-lg sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3 sm:text-xl",
-              )}
-              style={delay(80)}
-            >
-              <span className="font-semibold tracking-tight text-fg">{profile.name}</span>
-              <span aria-hidden="true" className="hidden h-px w-6 bg-line-strong sm:block" />
-              <span className="sr-only">, </span>
-              <span className="text-muted">{profile.title}</span>
-            </h1>
+        {/* One h1: the signature line (name + title) and the statement headline. */}
+        <h1 id="hero-title" className="mt-8 sm:mt-10">
+          <span
+            className={cn(
+              RISE,
+              "flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs tracking-[0.16em] text-muted uppercase sm:text-[0.8125rem]",
+            )}
+            style={delay(60)}
+          >
+            <span className="text-fg">{profile.name}</span>
+            <span aria-hidden="true" className="h-px w-6 bg-line-strong" />
+            <span className="sr-only">, </span>
+            <span>{profile.title}</span>
+          </span>
+          <span
+            className={cn(
+              RISE,
+              // Balanced wrap: four short lines on phones, two lines from tablets up.
+              "mt-5 block text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.94] font-semibold tracking-[-0.05em] text-fg sm:mt-6",
+            )}
+            style={delay(120)}
+          >
+            <span className="sr-only">: </span>
+            {headline.lead} <HeroEmphasis text={headline.emphasis} />
+          </span>
+        </h1>
 
+        <div className="mt-12 grid gap-12 sm:mt-14 lg:mt-16 lg:grid-cols-12 lg:items-start lg:gap-10 xl:gap-14">
+          <div className="min-w-0 lg:col-span-5 lg:pt-2">
             <p
-              className={cn(
-                RISE,
-                "mt-4 text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.035em] text-fg sm:text-6xl lg:text-[3.6rem] xl:text-[4.6rem]",
-              )}
-              style={delay(160)}
+              className={cn(RISE, "max-w-xl text-xl leading-snug font-medium tracking-[-0.01em] text-fg sm:text-2xl")}
+              style={delay(200)}
             >
-              {headline.lead}{" "}
-              <HeroEmphasis text={headline.emphasis} />
+              {positioning}
             </p>
-
-            <p className={cn(RISE, "mt-6 max-w-xl text-lg leading-relaxed text-muted sm:mt-7")} style={delay(240)}>
+            <p className={cn(RISE, "mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg")} style={delay(260)}>
               {intro}
             </p>
 
-            <div className={cn(RISE, "mt-8 flex flex-wrap gap-3 sm:mt-9")} style={delay(320)}>
+            <div className={cn(RISE, "mt-8 flex flex-wrap gap-3")} style={delay(320)}>
               <ButtonLink
                 href={primaryCta.href}
-                download={primaryCta.download}
                 size="lg"
-                leadingIcon={<Download aria-hidden="true" />}
+                className="group/cta w-full sm:w-auto"
                 trailingIcon={
-                  <span className="rounded-md bg-primary-fg/15 px-1.5 py-1 font-mono text-[0.625rem] leading-none font-medium tracking-[0.08em]">
-                    PDF
-                  </span>
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="transition-transform duration-300 ease-out-expo group-hover/cta:translate-x-1"
+                  />
                 }
-                className="w-full sm:w-auto"
               >
                 {primaryCta.label}
               </ButtonLink>
-              {secondaryCtas.map((cta) => (
-                <ButtonLink
-                  key={cta.href}
-                  href={cta.href}
-                  external={cta.external}
-                  variant="secondary"
-                  size="lg"
-                  leadingIcon={socialIcon(cta.href)}
-                  // Mobile: the résumé gets its own row, the two profiles share the next one.
-                  className="flex-1 sm:flex-none"
-                >
-                  {cta.label}
-                </ButtonLink>
-              ))}
+              <ButtonLink
+                href={resumeCta.href}
+                download={resumeCta.download}
+                variant="secondary"
+                size="lg"
+                className="group/dl w-full sm:w-auto"
+                leadingIcon={
+                  <Download
+                    aria-hidden="true"
+                    className="transition-transform duration-300 ease-out-expo group-hover/dl:translate-y-0.5"
+                  />
+                }
+                trailingIcon={
+                  <span className="rounded-md border border-line-strong px-1.5 py-1 font-mono text-[0.625rem] leading-none tracking-[0.08em] text-muted">
+                    PDF
+                  </span>
+                }
+              >
+                {resumeCta.label}
+              </ButtonLink>
             </div>
 
-            <div className={cn(RISE, "mt-7 sm:mt-8")} style={delay(400)}>
+            <div
+              className={cn(RISE, "mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6")}
+              style={delay(380)}
+            >
+              <SocialLink href={profile.links.linkedin} label="LinkedIn" icon={<LinkedInIcon aria-hidden="true" />} />
+              <SocialLink href={profile.links.github} label="GitHub" icon={<GitHubIcon aria-hidden="true" />} />
+              <p className="flex w-full flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-xs text-subtle sm:w-auto">
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin aria-hidden="true" className="size-3.5 text-accent-text" />
+                  <span className="sr-only">Based in </span>
+                  {recruiterHero.location}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock aria-hidden="true" className="size-3.5" />
+                  <span className="sr-only">Time zone: </span>
+                  {recruiterHero.timezone}
+                </span>
+              </p>
+            </div>
+
+            <div className={cn(RISE, "mt-7")} style={delay(440)}>
               <ModeCue />
             </div>
           </div>
 
-          <HeroProfileCard className={RISE} style={delay(200)} />
+          <div className={cn(RISE, "min-w-0 lg:col-span-7")} style={delay(240)}>
+            <HeroBlueprint />
+          </div>
         </div>
-      </div>
 
-      <HeroScrollCue />
+        <MetricsStrip className={cn(RISE, "mt-14 sm:mt-16 lg:mt-20")} style={delay(520)} />
+      </div>
     </section>
   );
 }
 
-/**
- * "Currently" status pill. One line where it fits (sm–md, xl+); two calm lines
- * on phones and in the narrower lg column, without a dangling separator.
- * The 17px radius equals half the single-line height (a true pill) and reads as
- * a soft rounded rectangle when the text wraps.
- */
+/** "Currently" status — accurate employment line (no "available" claims). */
 function HeroStatus({ className, style }: { className?: string; style?: CSSProperties }) {
   return (
     <p
       className={cn(
-        "inline-flex max-w-full items-start gap-2.5 rounded-[17px] border border-line bg-surface px-3 py-1.5 text-sm leading-5 shadow-soft",
+        "inline-flex max-w-full items-start gap-2.5 rounded-[17px] border border-line bg-surface/80 px-3 py-1.5 text-sm leading-5 backdrop-blur-sm",
         className,
       )}
       style={style}
@@ -148,8 +168,8 @@ function HeroStatus({ className, style }: { className?: string; style?: CSSPrope
         </span>{" "}
         <span className="font-medium text-fg">{recruiterHero.status}</span>
         <span className="sr-only">, </span>
-        <span className="text-muted max-sm:block lg:block xl:inline">
-          <span aria-hidden="true" className="max-sm:hidden lg:hidden xl:inline">
+        <span className="text-muted max-sm:block">
+          <span aria-hidden="true" className="max-sm:hidden">
             {" · "}
           </span>
           {recruiterHero.statusDetail}
@@ -159,85 +179,107 @@ function HeroStatus({ className, style }: { className?: string; style?: CSSPrope
   );
 }
 
-/**
- * Serif-italic accent phrase. Only its final word carries the hand-drawn stroke:
- * a single word never wraps, so the stroke sits on one line at every width.
- */
+/** Serif-italic amber accent; only the final word carries the drawn stroke (never wraps). */
 function HeroEmphasis({ text }: { text: string }) {
   const lastSpace = text.lastIndexOf(" ");
-  const head = text.slice(0, lastSpace + 1); // keeps the trailing space; "" for a single word
+  const head = text.slice(0, lastSpace + 1);
   const tail = text.slice(lastSpace + 1);
 
   return (
-    <em className="font-serif text-[1.06em] font-normal tracking-[-0.01em] italic">
+    <em className="font-serif text-[1.04em] font-normal tracking-[-0.02em] text-accent-text italic">
       {head}
       <span className="relative inline-block">
         {tail}
-        <HeroUnderline />
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          viewBox="0 0 220 16"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute -bottom-[0.12em] left-0 h-[0.18em] w-full overflow-visible text-accent"
+        >
+          <path
+            d="M3 11.6C38 6.4 81 3.7 124 4.1c34 .3 63 2.4 93 5.8"
+            pathLength={1}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.4}
+            strokeLinecap="round"
+            className="[stroke-dasharray:1] transition-[stroke-dashoffset] delay-[900ms] duration-[1400ms] ease-out-expo starting:[stroke-dashoffset:1] motion-reduce:delay-0"
+          />
+        </svg>
       </span>
     </em>
   );
 }
 
-/**
- * Accent stroke "drawn" once: a CSS transition from @starting-style (Tailwind
- * `starting:`), so it needs no JS and no extra keyframes. Browsers without
- * @starting-style simply show the finished stroke; reduced motion shows it at once.
- */
-function HeroUnderline() {
+function SocialLink({ href, label, icon }: { href: string; label: string; icon: ReactNode }) {
   return (
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      viewBox="0 0 220 16"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute -bottom-[0.22em] left-0 h-[0.32em] w-full overflow-visible text-accent-text"
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex min-h-10 items-center gap-2 text-sm font-medium text-fg transition-colors hover:text-accent-text [&_svg]:size-4"
     >
-      <path
-        d="M3 11.6C38 6.4 81 3.7 124 4.1c34 .3 63 2.4 93 5.8"
-        pathLength={1}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={2.6}
-        strokeLinecap="round"
-        className="[stroke-dasharray:1] transition-[stroke-dashoffset] delay-[1000ms] duration-[1400ms] ease-out-expo starting:[stroke-dashoffset:1] motion-reduce:delay-0"
-      />
-    </svg>
+      {icon}
+      <span className="underline decoration-line-strong underline-offset-4 transition-colors group-hover:decoration-current">
+        {label}
+      </span>
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
   );
 }
 
-/** The only texture: a faint hairline grid, faded radially, kept to the upper right. */
-function HeroBackdrop() {
+/** Verified résumé figures as a spec strip. */
+function MetricsStrip({ className, style }: { className?: string; style?: CSSProperties }) {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute -top-40 left-[70%] h-[48rem] w-[48rem] -translate-x-1/2 bg-grid mask-fade-radial opacity-50 lg:left-[72%] lg:h-[56rem] lg:w-[64rem]" />
+    <div className={className} style={style}>
+      <div className="flex items-center justify-between gap-4 border-t border-line pt-4">
+        <p className="font-mono text-[0.6875rem] tracking-[0.16em] text-subtle uppercase">By the numbers</p>
+        <a
+          href={`#${SECTION_IDS.recruiter.experience}`}
+          onClick={(event) => handleAnchorClick(event)}
+          className="group inline-flex min-h-10 items-center gap-1.5 font-mono text-[0.6875rem] tracking-[0.16em] text-subtle uppercase transition-colors hover:text-fg"
+        >
+          Experience
+          <ArrowDown aria-hidden="true" className="size-3.5 transition-transform group-hover:translate-y-0.5" />
+        </a>
+      </div>
+      <dl className="mt-2 grid grid-cols-2 border-t border-line lg:grid-cols-4">
+        {recruiterHero.metrics.map((metric, index) => (
+          <div
+            key={metric.label}
+            className={cn(
+              "flex flex-col gap-3 border-line py-6 pr-4 sm:py-8",
+              index % 2 === 1 && "border-l pl-4 sm:pl-6",
+              index >= 2 && "border-t lg:border-t-0",
+              index === 2 && "lg:border-l lg:pl-6",
+              index === 3 && "lg:pl-6",
+            )}
+          >
+            <dt className="order-2 text-sm leading-snug text-muted">
+              {metric.label}
+              <span className="mt-1 block font-mono text-[0.625rem] tracking-[0.12em] text-subtle uppercase">
+                {metric.source}
+              </span>
+            </dt>
+            <dd className="order-1 flex items-baseline gap-1 text-[2.75rem] leading-none font-semibold tracking-[-0.05em] text-fg tabular-nums sm:text-6xl">
+              {metric.value}
+              {"suffix" in metric ? <span className="text-xl font-normal tracking-normal text-subtle">{metric.suffix}</span> : null}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </div>
   );
 }
 
-/** lg+ only: quiet cue aligned to the page container's left edge. */
-function HeroScrollCue() {
+/** Blueprint grid on the right, a warm floor light — the recruiter texture. */
+function HeroBackdrop() {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden pb-7 lg:block">
-      <div className="container-page">
-        <a
-          href={`#${SECTION_IDS.recruiter.highlights}`}
-          onClick={(event) => handleAnchorClick(event)}
-          aria-label="Scroll to engineering highlights"
-          className="group pointer-events-auto inline-flex animate-fade items-center gap-3 py-1 pr-2 motion-reduce:[animation-delay:0ms]!"
-          style={delay(900)}
-        >
-          <span aria-hidden="true" className="relative h-10 w-px overflow-hidden bg-line-strong">
-            <span className="absolute inset-0 animate-scroll-cue bg-fg/60" />
-          </span>
-          <span
-            aria-hidden="true"
-            className="font-mono text-[0.6875rem] tracking-[0.16em] text-subtle uppercase transition-colors group-hover:text-fg"
-          >
-            Scroll
-          </span>
-        </a>
-      </div>
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute -top-24 right-[-10%] h-[44rem] w-[60rem] bg-blueprint opacity-[0.22] [mask-image:radial-gradient(ellipse_at_70%_30%,#000_15%,transparent_65%)]" />
+      <div className="absolute top-[30%] right-[8%] size-[36rem] animate-glow rounded-full bg-accent/[0.07] blur-[120px]" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-line-strong to-transparent" />
     </div>
   );
 }

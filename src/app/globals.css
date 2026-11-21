@@ -10,39 +10,43 @@
 
 /* ==========================================================================
    Design tokens
-   Recruiter = premium light (default). Freelance = premium dark.
+   Two premium dark personalities of one brand:
+     Recruiter (default) = warm graphite, cream type, amber "signal" accent —
+                           engineering editorial / spec-sheet language.
+     Freelance           = cool near-black, violet + emerald — bold product studio.
+   Amber sits opposite violet on the colour wheel, so the modes read as siblings.
    Tokens live on :root so html/body (and the View Transition snapshot) follow
    the active experience; :has() swaps them without any inline script.
    ========================================================================== */
 :root {
-  --bg: #f7f6f3;
-  --surface: #ffffff;
-  --surface-2: #f0efeb;
-  --surface-3: #e8e6e0;
-  --line: #e4e2dc;
-  --line-strong: #d2cfc6;
-  --fg: #16161a;
-  --muted: #55555e;
-  --subtle: #686871;
+  --bg: #0d0c0a;
+  --surface: #151411;
+  --surface-2: #1b1a16;
+  --surface-3: #25231e;
+  --line: #2a2823;
+  --line-strong: #3e3a33;
+  --fg: #f4f0e8;
+  --muted: #b1aa9d;
+  --subtle: #8b8579;
 
-  --primary: #16161a;
-  --primary-fg: #ffffff;
-  --primary-hover: #2c2c33;
+  --primary: #f4f0e8;
+  --primary-fg: #0d0c0a;
+  --primary-hover: #ffffff;
 
-  --accent: #2f5bd3;
-  --accent-fg: #ffffff;
-  --accent-text: #2f5bd3;
-  --accent-soft: #e9eefb;
+  --accent: #f2a541;
+  --accent-fg: #1a1206;
+  --accent-text: #f5b25a;
+  --accent-soft: rgb(242 165 65 / 0.12);
 
-  --accent-2: #17744b;
-  --accent-2-soft: #e3f1ea;
+  --accent-2: #34d399;
+  --accent-2-soft: rgb(52 211 153 / 0.12);
 
-  --ring: rgb(47 91 211 / 0.6);
-  --selection: rgb(47 91 211 / 0.16);
+  --ring: rgb(245 178 90 / 0.75);
+  --selection: rgb(242 165 65 / 0.32);
 
-  --shadow-sm: 0 1px 2px rgb(24 24 27 / 0.05), 0 1px 1px rgb(24 24 27 / 0.03);
-  --shadow-md: 0 1px 2px rgb(24 24 27 / 0.04), 0 10px 28px -10px rgb(24 24 27 / 0.12);
-  --shadow-lg: 0 2px 6px rgb(24 24 27 / 0.04), 0 28px 56px -20px rgb(24 24 27 / 0.2);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.45);
+  --shadow-md: 0 12px 32px -12px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 32px 72px -24px rgb(0 0 0 / 0.8);
 
   --header-h: 4rem;
 }
@@ -121,6 +125,54 @@
   --animate-pulse-dot: pulse-dot 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   --animate-scroll-cue: scroll-cue 2.2s cubic-bezier(0.76, 0, 0.24, 1) infinite;
   --animate-blink: blink 1.1s steps(2, start) infinite;
+  --animate-dash-flow: dash-flow 1.4s linear infinite;
+  --animate-dash-flow-slow: dash-flow 3.2s linear infinite;
+  --animate-swap-a: swap-a 6s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  --animate-swap-b: swap-b 6s cubic-bezier(0.76, 0, 0.24, 1) infinite;
+  --animate-glow: glow 4.8s ease-in-out infinite;
+
+  /* Moving dashes along an SVG stroke (pair with a 4/12-ish dasharray). */
+  @keyframes dash-flow {
+    to {
+      stroke-dashoffset: -16;
+    }
+  }
+  /* Two-state loop (e.g. "offline · queued" ↔ "online · synced"). */
+  @keyframes swap-a {
+    0%,
+    42% {
+      opacity: 1;
+    }
+    50%,
+    92% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes swap-b {
+    0%,
+    42% {
+      opacity: 0;
+    }
+    50%,
+    92% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
 
   @keyframes rise {
     from {
@@ -187,17 +239,12 @@
    ========================================================================== */
 @layer base {
   html {
-    color-scheme: light;
+    color-scheme: dark;
     background-color: var(--bg);
     scroll-padding-top: calc(var(--header-h) + 1.25rem);
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     scrollbar-color: var(--line-strong) var(--bg);
-  }
-
-  :root:has([data-mode="freelance"]),
-  [data-mode="freelance"] {
-    color-scheme: dark;
   }
 
   body {
@@ -270,6 +317,43 @@
 
 @utility mask-fade-radial {
   mask-image: radial-gradient(ellipse at center, #000 30%, transparent 72%);
+}
+
+/* Engineering-drawing grid: fine 16px minor lines + 80px major lines. */
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, var(--line-strong) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line-strong) 1px, transparent 1px);
+  background-size:
+    16px 16px,
+    16px 16px,
+    80px 80px,
+    80px 80px;
+}
+
+/* Hollow display numerals for editorial indices. */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-strong);
+}
+
+/* Loops inside [data-loop="hover"] only run while their [data-loop-host] is hovered. */
+[data-loop="hover"] * {
+  animation-play-state: paused;
+}
+@media (hover: hover) {
+  [data-loop-host]:hover [data-loop="hover"] * {
+    animation-play-state: running;
+  }
+}
+
+/* Decorative loops inside a [data-motion] wrapper pause while offscreen (wins over the above). */
+[data-motion="off"] *,
+[data-motion="off"] *::before,
+[data-motion="off"] *::after {
+  animation-play-state: paused !important;
 }
 
 /* ==========================================================================

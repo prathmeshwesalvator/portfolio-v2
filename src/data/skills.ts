@@ -1,10 +1,65 @@
-import type { SkillGroup } from "@/types";
+import type { SkillCategory, SkillGroup } from "@/types";
 
 /**
- * Grouped by where the skills were actually used — mobile engineering is the
- * primary focus (current role), backend comes from the Wesalvator internship
- * and projects, frontend from projects and freelance work.
- * Source: latest résumé skills section + the brief.
+ * Recruiter mode — skills matrix in the five categories from the brief.
+ * `core` skills are set large, `more` small, so importance is visible at a
+ * glance. Source: latest résumé skills section + projects already on the site.
+ */
+export const skillMatrix: readonly SkillCategory[] = [
+  {
+    id: "mobile",
+    title: "Mobile Engineering",
+    context: "Daily work · primary focus",
+    core: ["Flutter", "Dart", "Android", "iOS"],
+    more: [
+      "Flutter Web",
+      "Responsive UI",
+      "Method & Event Channels",
+      "Deep Linking",
+      "App-to-App Integration",
+      "Push Notifications",
+      "RSA-AES Encryption",
+      "Keystore · Keychain",
+      "Biometric Authentication",
+    ],
+  },
+  {
+    id: "architecture",
+    title: "Architecture & State",
+    context: "How I structure apps",
+    core: ["Clean Architecture", "BLoC / Cubit", "Offline-First"],
+    more: ["SOLID · DRY · KISS", "Design Patterns", "Background Sync", "Request Queuing", "Retry Logic", "Unit Testing"],
+  },
+  {
+    id: "backend",
+    title: "Backend & APIs",
+    context: "Integrations + projects",
+    core: ["REST APIs", "Django", "FastAPI"],
+    more: ["Django REST Framework", "WebSockets", "JSON", "Microservices", "Python"],
+  },
+  {
+    id: "data",
+    title: "Databases & Storage",
+    context: "Local-first + server-side",
+    core: ["Drift", "PostgreSQL"],
+    more: ["SQLite", "Local Persistence", "WorkManager", "Redis"],
+  },
+  {
+    id: "tools",
+    title: "Tools & Platforms",
+    context: "Everyday workflow",
+    core: ["Git", "Firebase", "Android Studio"],
+    more: ["GitHub", "VS Code", "Postman", "Docker", "Firebase Analytics", "Firebase Crashlytics"],
+  },
+];
+
+/** Web stack — shown as a footnote in Recruiter mode (used in projects + freelance work). */
+export const webStack = ["React", "JavaScript", "Tailwind CSS", "Bootstrap"] as const;
+
+/**
+ * Grouped by where the skills were actually used — used by the terminal easter
+ * egg. Mobile engineering is the primary focus (current role); backend comes
+ * from projects, frontend from projects and freelance work.
  */
 export const skillGroups: readonly SkillGroup[] = [
   {
@@ -54,7 +109,7 @@ export const skillGroups: readonly SkillGroup[] = [
   {
     id: "backend",
     title: "Backend & APIs",
-    label: "Internship + projects",
+    label: "Projects",
     emphasis: "secondary",
     description: "Django and FastAPI services, REST APIs and the data layer behind them.",
     clusters: [

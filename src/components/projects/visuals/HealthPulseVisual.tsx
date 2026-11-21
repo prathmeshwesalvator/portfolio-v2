@@ -29,7 +29,7 @@ export function HealthPulseVisual() {
       <circle cx={210} cy={134.5} r={3} className="fill-accent-2" />
       <path
         d="M106 172H374M106 228H374"
-        className="stroke-line freelance:stroke-line-strong"
+        className="stroke-line-strong"
         strokeWidth={1}
         strokeDasharray="1 5"
       />

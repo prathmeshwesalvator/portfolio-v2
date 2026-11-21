@@ -23,6 +23,7 @@ export const experience: readonly ExperienceItem[] = [
       "Implemented RSA-AES encryption with Android Keystore and iOS Keychain, and integrated native Android/iOS functionality through Method Channels and Event Channels.",
       "Implemented app-to-app integration, deep linking, Firebase Analytics and Crashlytics — improving cross-app navigation and production monitoring.",
     ],
+    highlightTags: ["Architecture", "Offline-first", "Performance", "Security & native", "Integration"],
     stack: [
       "Flutter",
       "Dart",
@@ -48,6 +49,7 @@ export const experience: readonly ExperienceItem[] = [
       "Developed Flutter Web applications and reusable components/packages, focused on modular, cross-platform development.",
       "Implemented debounced reactive search using StreamTransformers, with BLoC/Cubit for reactive state management.",
     ],
+    highlightTags: ["Flutter Web", "Reactive state"],
     stack: ["Flutter Web", "Dart", "BLoC / Cubit", "StreamTransformers"],
   },
   {
@@ -64,8 +66,9 @@ export const experience: readonly ExperienceItem[] = [
       "Worked with rate limiting, load balancing and Docker for reliable service deployment and backend scalability.",
     ],
     stack: ["Python", "Django", "FastAPI", "REST APIs", "Docker", "Microservices"],
-    // Listed on the latest résumé. Set `hidden: true` to remove it from the site.
-    hidden: false,
+    // Listed on the latest résumé, but hidden from the site per the owner's brief
+    // ("remove Wesalvator unless explicitly approved"). Set `hidden: false` to restore.
+    hidden: true,
   },
 ];
 

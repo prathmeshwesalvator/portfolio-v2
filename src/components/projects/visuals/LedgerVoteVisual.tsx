@@ -3,7 +3,7 @@ import { CARD, Panel } from "./shared";
 const MOTION = ".pv-lv-rail{animation:pv-lv-rail 8s linear infinite}@keyframes pv-lv-rail{to{stroke-dashoffset:-30}}";
 
 /** Rounded dash rows that read as hash digests. */
-const HASH = "stroke-surface-3 freelance:stroke-line-strong";
+const HASH = "stroke-line-strong";
 const HASH_A = "M70 180h10m8 0h8m8 0h14m8 0h6M70 192h6m8 0h18m8 0h10M70 204h14m8 0h6";
 const HASH_B = "M204 232h14m8 0h8m8 0h22m8 0h8";
 const HASH_C = "M344 180h8m8 0h14m8 0h6m8 0h12M344 192h16m8 0h6m8 0h12M344 204h6m8 0h16";
@@ -53,11 +53,11 @@ export function LedgerVoteVisual() {
       <path d={HASH_C} className={HASH} strokeWidth={4} />
 
       {/* Block #02 — ballot cast + verified */}
-      <Panel x={186} y={118} w={108} h={124} r={14} className="fill-surface stroke-accent-text/50 freelance:fill-surface-3" />
+      <Panel x={186} y={118} w={108} h={124} r={14} className="fill-surface-3 stroke-accent-text/50" />
       <BlockLabel x={202} y={141}>#02</BlockLabel>
       <rect x={227} y={150} width={26} height={34} rx={3} className={CARD} strokeWidth={1.25} />
       <path d="M233 165l4 4 8-8" className="stroke-accent-2" strokeWidth={2} />
-      <rect x={212} y={180} width={56} height={40} rx={7} className="fill-surface freelance:fill-surface-3" />
+      <rect x={212} y={180} width={56} height={40} rx={7} className="fill-surface-3" />
       <rect x={212} y={180} width={56} height={40} rx={7} className="fill-accent-soft stroke-accent-text/70" strokeWidth={1.5} />
       <path d="M222 180h36" className="stroke-accent-text" strokeWidth={2} />
       <path d="M230 202h20" className="stroke-accent-text/50" strokeWidth={2} />

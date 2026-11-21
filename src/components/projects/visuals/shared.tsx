@@ -1,22 +1,22 @@
 /**
  * Shared primitives for the abstract project illustrations.
- * Every colour is token-driven, so one drawing reads as charcoal/blue on warm
- * off-white (Recruiter) and violet/emerald on near-black (Freelance).
+ * Every colour is token-driven, so one drawing reads as cream/amber on warm
+ * graphite (Recruiter) and violet/emerald on near-black (Freelance).
  * Canvas: viewBox 0 0 480 360 (see ProjectVisual).
  */
 
-/** Raised card: white on off-white (light) / lifted graphite on near-black (dark). */
-export const CARD = "fill-surface stroke-line-strong freelance:fill-surface-3";
+/** Raised card: lifted graphite on the dark page. */
+export const CARD = "fill-surface-3 stroke-line-strong";
 
 /** Skeleton bars and inset shapes placed on a CARD. */
-export const INSET = "fill-surface-3 freelance:fill-line-strong";
+export const INSET = "fill-line-strong";
 
 /** Knock-out stroke matching the CARD fill (separates crossing lines). */
-export const CARD_KNOCKOUT = "stroke-surface freelance:stroke-surface-3";
+export const CARD_KNOCKOUT = "stroke-surface-3";
 
-/** Low-opacity contact shadow; deeper in dark mode, where depth needs more weight. */
-export const SHADOW = "fill-black/[0.045] freelance:fill-black/40";
-const SHADOW_FAR = "fill-black/[0.03] freelance:fill-black/25";
+/** Contact shadow — dark pages need more weight for depth to read. */
+export const SHADOW = "fill-black/40";
+const SHADOW_FAR = "fill-black/25";
 
 interface Box {
   x: number;

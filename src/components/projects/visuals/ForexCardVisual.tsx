@@ -60,7 +60,7 @@ export function ForexCardVisual() {
           width={30}
           height={23}
           rx={5}
-          className="fill-surface-3 stroke-subtle/50 freelance:fill-line-strong"
+          className="fill-line-strong stroke-subtle/50"
           strokeWidth={1}
         />
         <path d="M176 156v23M186 156v23M166 167.5h10M186 167.5h10" className="stroke-subtle/50" strokeWidth={1} />

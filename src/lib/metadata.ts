@@ -33,7 +33,8 @@ export function buildModeMetadata(mode: ViewerMode): Metadata {
 export function buildModeViewport(mode: ViewerMode): Viewport {
   return {
     themeColor: modeMeta[mode].themeColor,
-    colorScheme: mode === "freelance" ? "dark" : "light",
+    // Both experiences are dark (warm graphite / cool near-black).
+    colorScheme: "dark",
   };
 }
 

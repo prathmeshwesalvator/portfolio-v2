@@ -8,13 +8,16 @@ import { ProjectsSection } from "./ProjectsSection";
 import { RecruiterHero } from "./RecruiterHero";
 import { SkillsSection } from "./SkillsSection";
 
-/** Recruiter mode — professional, scannable in seconds. Order is intentional. */
+/**
+ * Recruiter mode — engineering editorial. Order follows how hiring managers read:
+ * who and where now → proven experience → capabilities → work up close → skills → education → contact.
+ */
 export function RecruiterExperience() {
   return (
     <>
       <RecruiterHero />
-      <HighlightsSection />
       <ExperienceSection />
+      <HighlightsSection />
       <ProjectsSection />
       <SkillsSection />
       <EducationSection />

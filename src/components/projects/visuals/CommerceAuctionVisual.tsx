@@ -35,7 +35,7 @@ export function CommerceAuctionVisual() {
           w={84}
           h={84}
           r={14}
-          className={`fill-surface freelance:fill-surface-3 ${i === ACTIVE_TILE ? "stroke-accent-text/60" : "stroke-line-strong"}`}
+          className={`fill-surface-3 ${i === ACTIVE_TILE ? "stroke-accent-text/60" : "stroke-line-strong"}`}
         />
       ))}
       <g className={INSET}>
@@ -46,7 +46,7 @@ export function CommerceAuctionVisual() {
           </g>
         ))}
         <circle cx={98} cy={130} r={17} />
-        <path d="M98 213l15 26H83z" className="stroke-surface-3 freelance:stroke-line-strong" strokeWidth={5} />
+        <path d="M98 213l15 26H83z" className="stroke-line-strong" strokeWidth={5} />
         <path d="M180 242v-11a14 14 0 0 1 28 0v11z" />
       </g>
       <circle cx={98} cy={130} r={8} className="stroke-subtle/40" strokeWidth={1.5} />

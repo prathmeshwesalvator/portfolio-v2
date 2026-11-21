@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import type { PointerEvent } from "react";
 import { ArrowLink } from "@/components/shared/ArrowLink";
 import { ChipList } from "@/components/shared/Chip";
@@ -27,7 +27,7 @@ export function ServicesSection() {
             What I can <em>build for you</em>
           </>
         }
-        description="Whether you need an app, the backend behind it, or the whole product — here's where I can help."
+        description="Whether you need an app, the backend behind it, or the whole product — here's what I deliver, and the problems each one solves."
       />
 
       <Stagger as="ul" className="mt-14 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:gap-5">
@@ -87,7 +87,20 @@ function ServiceCard({ service }: { service: Service }) {
       </h3>
       <p className="relative mt-3 leading-relaxed text-muted">{service.summary}</p>
 
-      <ul className="relative mt-6 flex flex-col gap-2.5">
+      <div className="relative mt-6 rounded-2xl border border-line bg-bg/50 p-4 sm:p-5">
+        <h4 className="font-mono text-[0.6875rem] tracking-[0.14em] text-accent-text uppercase">Good fit if…</h4>
+        <ul className="mt-3 flex flex-col gap-2.5">
+          {service.problems.map((problem) => (
+            <li key={problem} className="flex gap-2.5 text-[0.9375rem] leading-snug text-fg">
+              <ArrowRight aria-hidden="true" className="mt-[3px] size-3.5 shrink-0 text-accent-text" strokeWidth={2.25} />
+              <span className="min-w-0">{problem}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <h4 className="relative mt-6 font-mono text-[0.6875rem] tracking-[0.14em] text-subtle uppercase">What you get</h4>
+      <ul className="relative mt-3 flex flex-col gap-2.5">
         {service.deliverables.map((deliverable) => (
           <li key={deliverable} className="flex gap-3 text-[0.95rem] leading-snug text-fg/90">
             <Check aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-accent-2" strokeWidth={2.5} />

@@ -9,10 +9,10 @@ export default function OpenGraphImage() {
   return new ImageResponse(
     (
       <OgArtwork
-        theme="light"
-        eyebrow="Prathmesh More"
-        title="Building reliable mobile experiences through thoughtful engineering."
-        subtitle="Flutter Software Engineer — production-grade apps, offline-first systems and secure mobile development."
+        theme="warm"
+        eyebrow="Prathmesh More · Flutter Software Engineer"
+        title="Engineering mobile experiences that scale."
+        subtitle="Flutter Engineer focused on building secure, scalable and reliable mobile applications."
         footerLeft="Recruiter view"
         footerRight="One developer. Two experiences."
       />

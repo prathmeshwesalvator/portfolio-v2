@@ -7,9 +7,9 @@ A single Next.js application with two completely different visitor experiences:
 | | Recruiter (default) | Freelance |
 |---|---|---|
 | URL | `/?viewer=recruiter` | `/?viewer=freelance` |
-| Theme | Premium light — off-white, charcoal, blue accent, serif-italic accents | Premium dark — near-black, violet + emerald, bold editorial display type |
-| Goal | Trust in engineering experience, scannable in seconds | Make services obvious, memorable, convert to an inquiry |
-| Sections | Hero → Engineering highlights → Experience → Featured projects → Skills → Education & more → Let's Connect | Hero → Services → Selected work → How I work → Why work with me → Project inquiry |
+| Theme | Premium dark, **engineering editorial** — warm graphite, cream type, amber accent, Instrument Serif italic accents, blueprint / spec-sheet details | Premium dark, **product studio** — cool near-black, violet + emerald, bold Bricolage display type, spotlight bento |
+| Goal | Trust in engineering fundamentals, scannable in seconds | Make services obvious, memorable, convert to an inquiry |
+| Sections | Hero (interactive architecture figure + verified metrics) → Experience → Engineering highlights (capability board) → Featured projects (annotated device-mockup chapters + independent builds) → Skills matrix → Education → Let's build something meaningful | Hero → Services → Selected work → How I work → Why work with me → Project inquiry → Let's talk |
 
 Built from scratch — the previous HTML portfolio was used only as an information source.
 
@@ -55,7 +55,7 @@ Open <http://localhost:3000/?viewer=recruiter> or <http://localhost:3000/?viewer
   - swaps the experience inside a **View Transition** (circular reveal from the clicked control), falling back to a fade where unsupported, and an instant swap for `prefers-reduced-motion`,
   - updates `document.title`, `<meta name="theme-color">`, and announces the change to screen readers.
 - Back/forward buttons follow the URL (`popstate`), refresh keeps the mode, and a URL without `viewer` is normalised to `?viewer=recruiter` with `replaceState` (no extra history entry).
-- Theme tokens live on `:root` and swap via `:root:has([data-mode="freelance"])` (with a wrapper-level fallback), so the page background, scrollbars and form controls follow the active experience.
+- Theme tokens live on `:root` and swap via `:root:has([data-mode="freelance"])` (with a wrapper-level fallback), so the page background, scrollbars and form controls follow the active experience. Both palettes are dark; amber (recruiter) sits opposite violet (freelance) on the colour wheel so the two read as one brand.
 
 ## Project structure
 
@@ -67,7 +67,7 @@ src/
     app/               PortfolioApp — client root (MotionConfig, ModeProvider, header/main/footer)
     mode/              ModeProvider (state + URL sync + transitions), ModeSwitch, ModeCue
     layout/            SiteHeader, MobileMenu, SiteFooter, ScrollProgress
-    recruiter/         Recruiter experience sections
+    recruiter/         Recruiter experience sections (+ HeroBlueprint, CapabilityDiagram, DeviceMockup, ProjectChapter)
     freelance/         Freelance experience sections (+ interactive HeroComposer)
     contact/           Project inquiry section + form
     projects/          ProjectVisual (abstract illustrations), ProjectLinks
@@ -87,18 +87,18 @@ Everything visible on the site comes from `src/data/`:
 | File | Content |
 |---|---|
 | `profile.ts` | Name, title, location, email, links, current role, summary, portrait |
-| `experience.ts` | Timeline (set `hidden: true` on an entry to hide it) |
+| `experience.ts` | Roles + tagged highlights (set `hidden: true` on an entry to hide it — Wesalvator is currently hidden) |
 | `projects.ts` | Projects, links, which projects appear where |
-| `skills.ts` | Skill groups (grouped by where they were used — no proficiency bars) |
-| `highlights.ts` | Recruiter "Engineering highlights" |
-| `education.ts` | Degree + additional information (NCC, certification, languages, interests) |
-| `services.ts` | Freelance services, process steps, "why work with me" |
+| `skills.ts` | `skillMatrix` — Recruiter skills in five categories (core skills set large, the rest small); `skillGroups` — used by the terminal |
+| `highlights.ts` | Recruiter capability board (each item names the diagram it draws) |
+| `education.ts` | Degree + additional information (NCC, languages, interests; the unverified certification is commented out) |
+| `services.ts` | Freelance services (with "good fit if…" problems), process steps (with outputs), "why work with me" |
 | `inquiry.ts` | Inquiry form options (project types, budget ranges) and limits |
 | `site.ts` | Per-mode titles/descriptions/navigation, hero and contact copy, section ids |
 
 To update the résumé, replace `public/resume/Prathmesh-More-Resume.pdf` (keep the file name or update `profile.ts`).
 
-**Portrait (currently hidden).** The photo is commented out for now and the cards show the PM monogram instead. To bring it back, uncomment the marked `Image` blocks (and their `Image` imports) in `src/components/recruiter/parts/HeroProfileCard.tsx` and `src/components/freelance/WhySection.tsx`. The images themselves stay in `src/assets/profile/` and `profile.ts`.
+**Portrait (currently hidden).** The photo is commented out and the Freelance "Why" tile shows the PM monogram instead. To bring it back there, uncomment the marked `Image` block (and its `Image` import) in `src/components/freelance/WhySection.tsx`. The Recruiter hero no longer uses a profile card. The images stay in `src/assets/profile/` and `profile.ts`.
 
 Once a year, bump `brand.copyrightYear` in `site.ts` and `LAST_UPDATED` in `src/app/sitemap.ts` (the build intentionally never reads the clock — Cache Components forbids it during prerendering).
 
@@ -140,7 +140,7 @@ The Freelance inquiry form validates input on the client and then delivers it in
 - No analytics, trackers, cookies or third-party scripts/fonts. No visitor data is collected.
 - No phone number is published; contact is via email, LinkedIn and GitHub.
 - Form input is normalised and length-limited, rendered only as text, and never logged.
-- Professional projects use abstract illustrations instead of app screenshots and are labelled as team-owned client products.
+- Professional projects use abstract illustrations and **abstract, annotated device mockups** (skeleton UI, no logos, copy or data) instead of app screenshots, are captioned "Illustrative mockup — not the production interface", and are labelled as team-owned client products.
 
 ## Accessibility & performance
 

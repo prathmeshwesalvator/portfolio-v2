@@ -19,6 +19,7 @@ export const SECTION_IDS = {
     process: "process",
     why: "why",
     inquiry: "start",
+    talk: "lets-talk",
   },
 } as const;
 
@@ -29,17 +30,17 @@ export const modeMeta: Record<ViewerMode, ModeMeta> = {
   recruiter: {
     title: "Prathmesh More — Flutter Software Engineer",
     description:
-      "Flutter Software Engineer building production-grade enterprise mobile apps — secure, offline-first and built on Clean Architecture. Based in Dombivli, Thane, India.",
-    themeColor: "#f7f6f3",
+      "Flutter Engineer building secure, scalable and reliable mobile applications — production enterprise apps on Clean Architecture, BLoC and offline-first systems. Based in Dombivli, Thane, India.",
+    themeColor: "#0d0c0a",
     label: "Recruiter",
     hint: "Hiring? See experience, projects and skills.",
     announcement: "Recruiter view loaded: experience, projects and skills.",
     canonicalPath: "/",
     nav: [
       { id: R.experience, label: "Experience" },
+      { id: R.highlights, label: "Expertise" },
       { id: R.projects, label: "Projects" },
       { id: R.skills, label: "Skills" },
-      { id: R.education, label: "Education" },
       { id: R.contact, label: "Contact" },
     ],
     headerCta: {
@@ -83,35 +84,38 @@ export const brand = {
 export const recruiterHero = {
   status: `${profile.current.role} at ${profile.current.company}`,
   statusDetail: `Client: ${profile.current.client}`,
-  /** Rendered as: Building reliable mobile experiences through <em>thoughtful engineering.</em> */
+  /** Rendered as: Engineering mobile experiences <em>that scale.</em> */
   headline: {
-    lead: "Building reliable mobile experiences through",
-    emphasis: "thoughtful engineering.",
+    lead: "Engineering mobile experiences",
+    emphasis: "that scale.",
   },
+  positioning: "Flutter Engineer focused on building secure, scalable and reliable mobile applications.",
   intro:
-    "I'm a Flutter Software Engineer building production-grade enterprise apps — focused on secure mobile development, offline-first systems and scalable application architecture. Comfortable beyond the app, too: I've built backend services with Django and FastAPI.",
-  facts: [
-    { label: "Based in", value: profile.location.short },
-    { label: "Education", value: "B.E. CSE (AI & ML) · CGPA 9.0" },
-    { label: "Shipping", value: "3 production Flutter apps" },
-  ],
-  primaryCta: {
+    "I build and maintain production-grade enterprise apps with Flutter, BLoC and Clean Architecture — offline-first, encrypted where it matters, and integrated deeply with Android and iOS.",
+  location: profile.location.short,
+  timezone: "IST · UTC+5:30",
+  primaryCta: { label: "View projects", href: `#${R.projects}` } satisfies CallToAction,
+  resumeCta: {
     label: "Download résumé",
     href: profile.links.resume,
     download: profile.links.resumeFileName,
   } satisfies CallToAction,
-  secondaryCtas: [
-    { label: "LinkedIn", href: profile.links.linkedin, external: true },
-    { label: "GitHub", href: profile.links.github, external: true },
-  ] satisfies CallToAction[],
+  /** Verified résumé figures only — keep the "~". */
+  metrics: [
+    { value: "3", label: "production-grade Flutter apps", source: "Risosu Consultancy" },
+    { value: "~20%", label: "faster app startup", source: "Startup optimization" },
+    { value: "~25%", label: "fewer unnecessary network operations", source: "Offline-first sync" },
+    { value: "9.0", suffix: "/10", label: "CGPA · B.E. CSE (AI & ML)", source: "University of Mumbai" },
+  ],
 } as const;
 
 export const recruiterContact = {
   eyebrow: "Contact",
-  title: "Let's Connect",
+  /** Rendered as: Let's build something <em>meaningful.</em> */
+  title: { lead: "Let's build something", emphasis: "meaningful." },
   description:
-    "Email is the quickest way to reach me — I'm also on LinkedIn and GitHub, and my résumé is one click away.",
-  primaryCta: { label: "Let's Connect", href: `mailto:${profile.email}` } satisfies CallToAction,
+    "Hiring for a mobile team? Email is the quickest way to reach me — and my résumé, LinkedIn and GitHub are all one click away.",
+  primaryCta: { label: "Email me", href: `mailto:${profile.email}` } satisfies CallToAction,
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -142,6 +146,14 @@ export const freelanceInquiry = {
     "I reply with questions or a time to talk it through.",
     "You get a clear scope, plan and estimate.",
   ],
+} as const;
+
+export const freelanceClosing = {
+  eyebrow: "Let's talk",
+  question: "Got a project in mind?",
+  answer: "Let's talk.",
+  description:
+    "Email me a line about your idea — or use the brief above. Either way you get a reply from me, not a sales team.",
 } as const;
 
 /** Cross-mode prompts ("you're in X view — switch to Y"). */

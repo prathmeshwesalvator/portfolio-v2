@@ -5,7 +5,7 @@
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 
 interface OgArtworkProps {
-  theme: "light" | "dark";
+  theme: "warm" | "dark";
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -13,9 +13,26 @@ interface OgArtworkProps {
   footerRight: string;
 }
 
+/** warm = Recruiter (graphite + amber), dark = Freelance (near-black + violet). */
 const THEMES = {
-  light: { bg: "#f7f6f3", fg: "#16161a", muted: "#55555e", line: "#e4e2dc", tile: "#16161a", accent: "#2f5bd3" },
-  dark: { bg: "#0a0a0c", fg: "#f4f4f6", muted: "#a6a6b0", line: "#24242b", tile: "#6d4aff", accent: "#b49cff" },
+  warm: {
+    bg: "#0d0c0a",
+    fg: "#f4f0e8",
+    muted: "#b1aa9d",
+    line: "#2a2823",
+    tile: "#25231e",
+    stroke: "#f4f0e8",
+    accent: "#f5b25a",
+  },
+  dark: {
+    bg: "#0a0a0c",
+    fg: "#f4f4f6",
+    muted: "#a6a6b0",
+    line: "#24242b",
+    tile: "#6d4aff",
+    stroke: "#ffffff",
+    accent: "#b49cff",
+  },
 } as const;
 
 export function OgArtwork({ theme, eyebrow, title, subtitle, footerLeft, footerRight }: OgArtworkProps) {
@@ -37,8 +54,8 @@ export function OgArtwork({ theme, eyebrow, title, subtitle, footerLeft, footerR
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
         <svg width="64" height="64" viewBox="0 0 64 64">
           <rect width="64" height="64" rx="16" fill={t.tile} />
-          <path d="M13 46V18h8a8 8 0 0 1 0 16h-8" fill="none" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M33 46V18l8 14 8-14v28" fill="none" stroke="#ffffff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M13 46V18h8a8 8 0 0 1 0 16h-8" fill="none" stroke={t.stroke} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M33 46V18l8 14 8-14v28" fill="none" stroke={t.stroke} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
           <circle cx="56.5" cy="45" r="3" fill="#34d399" />
         </svg>
         <div style={{ display: "flex", fontSize: 26, letterSpacing: 4, textTransform: "uppercase", color: t.muted }}>

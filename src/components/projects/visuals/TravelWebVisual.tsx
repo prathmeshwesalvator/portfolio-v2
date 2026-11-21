@@ -37,14 +37,14 @@ export function TravelWebVisual() {
         <circle cx={114} cy={88} r={3.5} />
       </g>
       <Bar x={134} y={81} w={180} h={14} className={INSET} />
-      <path d="M72 104H408" className="stroke-line freelance:stroke-line-strong" strokeWidth={1} />
+      <path d="M72 104H408" className="stroke-line-strong" strokeWidth={1} />
 
       {/* Hero */}
       <rect x={88} y={116} width={304} height={156} rx={10} className="fill-surface-2" />
       <rect x={88} y={116} width={304} height={156} rx={10} fill={`url(#${skyId})`} />
       <circle cx={318} cy={160} r={22} className="pv-tw-sun fill-accent-soft stroke-accent-text/70" strokeWidth={1.5} />
       <path d={RIDGE_BACK} className={INSET} />
-      <path d={RIDGE_FRONT} className="fill-line-strong freelance:fill-surface" />
+      <path d={RIDGE_FRONT} className="fill-surface" />
 
       <Bar x={108} y={136} w={112} h={9} className="fill-fg/75" />
       <Bar x={108} y={152} w={76} h={9} className="fill-fg/75" />

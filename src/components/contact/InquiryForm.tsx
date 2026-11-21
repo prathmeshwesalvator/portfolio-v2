@@ -37,8 +37,8 @@ const FIELD_LABELS: Record<(typeof inquiryFieldOrder)[number], string> = {
   description: "Project description",
 };
 
-const ERROR_TEXT = "recruiter:text-[#b42318] freelance:text-[#ff8a8a]";
-const ERROR_BORDER = "border-[#ff8a8a]/70 recruiter:border-[#b42318]/60";
+const ERROR_TEXT = "text-[#ff8a8a]";
+const ERROR_BORDER = "border-[#ff8a8a]/70";
 
 const CONTROL =
   "w-full rounded-xl border bg-surface-2 px-4 text-[0.9375rem] text-fg placeholder:text-subtle transition-colors " +

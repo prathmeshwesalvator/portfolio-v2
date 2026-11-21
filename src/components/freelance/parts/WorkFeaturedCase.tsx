@@ -46,13 +46,13 @@ export function WorkFeaturedCase({ project }: { project: Project }) {
         </div>
 
         {project.objective ? (
-          <WorkDetail label="Objective">
+          <WorkDetail label="The problem">
             <WorkText>{project.objective}</WorkText>
           </WorkDetail>
         ) : null}
 
         {project.solution ? (
-          <WorkDetail label="Solution">
+          <WorkDetail label="The solution">
             <WorkText>{project.solution}</WorkText>
           </WorkDetail>
         ) : null}

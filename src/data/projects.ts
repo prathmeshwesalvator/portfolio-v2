@@ -23,6 +23,9 @@ export const projects: readonly Project[] = [
     objective: "A production forex and travel card application with secure, connected mobile experiences.",
     solution:
       "Flutter modules built with BLoC, protected by RSA-AES encryption, connected to other apps through cross-app deep linking, and monitored with Firebase.",
+    challenge:
+      "Handling sensitive forex and card data securely, while letting users move seamlessly between this app and other apps.",
+    outcome: "Live on Google Play",
     contributions: [
       "Developed the Edge Points and Offers & Rewards modules",
       "Implemented secure RSA-AES encryption",
@@ -54,6 +57,9 @@ export const projects: readonly Project[] = [
     objective: "Enterprise tour expense management that stays reliable with or without connectivity.",
     solution:
       "An offline-first Flutter architecture: expenses persist locally with Drift and synchronize in the background with WorkManager, with Android Flavors for multi-environment builds.",
+    challenge:
+      "Expenses recorded on tour — often without reliable connectivity — must never be lost, and must sync automatically once the device is back online.",
+    outcome: "Live on Google Play",
     contributions: [
       "Developed Trip Wallet 2.0",
       "Worked on the On Tour Sell and TMPF modules",
@@ -205,11 +211,12 @@ export function getProject(id: ProjectId): Project {
   return project;
 }
 
-/** Recruiter mode — featured showcases, in order. */
-export const recruiterFeaturedIds: readonly ProjectId[] = ["tc-pay", "tourpe", "medtech-360"];
+/** Recruiter mode — featured project chapters, in order. */
+export const recruiterFeaturedIds: readonly ProjectId[] = ["tc-pay", "tourpe"];
 
-/** Recruiter mode — compact "more projects" list. */
+/** Recruiter mode — "independent builds" grid (the first item gets the wide card). */
 export const recruiterMoreIds: readonly ProjectId[] = [
+  "medtech-360",
   "ecommerce-platform",
   "realtime-chat",
   "blockchain-evoting",
@@ -219,12 +226,15 @@ export const recruiterMoreIds: readonly ProjectId[] = [
 /** Freelance mode — the featured case study. */
 export const freelanceFeaturedId: ProjectId = "vibe-tribe-travels";
 
-/** Freelance mode — other work shown as engineering capability, in order. */
+/**
+ * Freelance mode — other work shown as engineering capability, in order.
+ * Only projects that strengthen the freelance positioning (production mobile
+ * apps and full-stack products); the blockchain prototype stays in Recruiter mode.
+ */
 export const freelanceWorkIds: readonly ProjectId[] = [
   "tc-pay",
   "tourpe",
   "medtech-360",
   "ecommerce-platform",
   "realtime-chat",
-  "blockchain-evoting",
 ];

@@ -81,7 +81,7 @@ export function SiteFooter() {
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent(TERMINAL_OPEN_EVENT))}
             aria-label="Open the terminal (shortcut: backtick key)"
-            className="mt-6 inline-flex h-10 items-center gap-2 rounded-full border border-line bg-surface px-4 font-mono text-xs text-muted transition-colors hover:border-line-strong hover:text-fg freelance:bg-surface-2"
+            className="mt-6 inline-flex h-10 items-center gap-2 rounded-full border border-line bg-surface-2 px-4 font-mono text-xs text-muted transition-colors hover:border-line-strong hover:text-fg"
           >
             <TerminalIcon aria-hidden="true" className="size-3.5" />
             Terminal

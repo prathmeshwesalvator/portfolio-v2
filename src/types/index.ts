@@ -119,6 +119,8 @@ export interface ExperienceItem {
   period: string;
   summary?: string;
   highlights: readonly string[];
+  /** Short category label per highlight (same order), e.g. "Offline-first". */
+  highlightTags?: readonly string[];
   stack: readonly string[];
   /** Project ids (see data/projects.ts) delivered in this role. */
   projectIds?: readonly ProjectId[];
@@ -180,6 +182,10 @@ export interface Project {
   objective?: string;
   /** How it was solved (case-study format). */
   solution?: string;
+  /** The core engineering challenge, framed only from verified facts. */
+  challenge?: string;
+  /** Verified outcome only (e.g. "Live on Google Play"). */
+  outcome?: string;
   /** What Prathmesh personally did — only verified statements. */
   contributions?: readonly string[];
   /** Feature highlights of the product itself. */
@@ -214,13 +220,36 @@ export interface SkillGroup {
   clusters: readonly SkillCluster[];
 }
 
+/** Diagram drawn on each Recruiter capability tile (see CapabilityDiagram). */
+export type CapabilityDiagramKind =
+  | "clean-architecture"
+  | "offline-first"
+  | "bloc"
+  | "security"
+  | "performance"
+  | "native"
+  | "deep-linking"
+  | "api";
+
 export interface EngineeringHighlight {
   id: string;
   title: string;
   description: string;
   /** Short evidence string drawn from the résumé (e.g. "~20% faster startup"). */
   evidence: string;
-  icon: IconComponent;
+  diagram: CapabilityDiagramKind;
+  /** "feature" tiles span half the board on large screens. */
+  size: "feature" | "standard";
+}
+
+/** Recruiter skills matrix — core skills are set large, the rest small. */
+export interface SkillCategory {
+  id: string;
+  title: string;
+  /** Factual context, e.g. "Daily work". */
+  context: string;
+  core: readonly string[];
+  more: readonly string[];
 }
 
 export interface EducationItem {
@@ -251,6 +280,8 @@ export interface Service {
   index: string;
   title: string;
   summary: string;
+  /** Concrete situations this service is a good fit for. */
+  problems: readonly string[];
   deliverables: readonly string[];
   stack: readonly string[];
   icon: IconComponent;
@@ -260,6 +291,8 @@ export interface ProcessStep {
   index: string;
   title: string;
   description: string;
+  /** What the client has in hand at the end of the step. */
+  output: string;
   icon: IconComponent;
 }
 

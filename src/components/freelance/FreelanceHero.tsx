@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Globe } from "lucide-react";
 import type { CSSProperties } from "react";
 import { ModeCue } from "@/components/mode/ModeCue";
+import { GooglePlayIcon } from "@/components/shared/BrandIcons";
 import { ButtonLink } from "@/components/shared/Button";
 import { freelanceHero, SECTION_IDS } from "@/data/site";
 import { cn } from "@/lib/cn";
@@ -89,12 +90,32 @@ export function FreelanceHero() {
               </ButtonLink>
             </div>
 
-            <div className={cn(RISE, "mt-8")} style={delay(340)}>
+            {/* Proof, not promises — both facts are verifiable from the Work section. */}
+            <ul
+              aria-label="Proof of work"
+              className={cn(RISE, "mt-8 flex flex-wrap gap-x-6 gap-y-2.5 text-sm text-muted")}
+              style={delay(320)}
+            >
+              <li className="inline-flex items-center gap-2">
+                <GooglePlayIcon aria-hidden="true" className="size-3.5 text-accent-2" />
+                Production Flutter apps on Google Play
+              </li>
+              <li className="inline-flex items-center gap-2">
+                <Globe aria-hidden="true" className="size-3.5 text-accent-2" />A live freelance client website
+              </li>
+            </ul>
+
+            <div className={cn(RISE, "mt-6")} style={delay(360)}>
               <ModeCue />
             </div>
           </div>
 
-          <div className={cn(RISE, "min-w-0 lg:col-span-5")} style={delay(220)}>
+          <div className={cn(RISE, "relative isolate min-w-0 lg:col-span-5")} style={delay(220)}>
+            {/* A single soft light behind the product card for depth. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute top-1/2 left-1/2 -z-10 size-[min(30rem,90vw)] -translate-1/2 rounded-full bg-accent/20 blur-[110px]"
+            />
             <HeroComposer />
           </div>
         </div>
